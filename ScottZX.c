@@ -340,8 +340,8 @@ void LoadDatabase(FILE *f)
 #endif
 	while(ldct<na+1)
 	{
-		//if(fscanf(f,"%hd %hd %hd %hd %hd %hd %hd %hd",
-		if(fscanf(f,"%u %u %u %u %u %u %u %u",
+		if(fscanf(f,"%hd %hd %hd %hd %hd %hd %hd %hd",
+		//if(fscanf(f,"%u %u %u %u %u %u %u %u",
 			&ap->Vocab,
 			&ap->Condition[0],
 			&ap->Condition[1],
@@ -374,8 +374,8 @@ void LoadDatabase(FILE *f)
 #endif
 	while(ldct<nr+1)
 	{
-		//fscanf(f,"%hd %hd %hd %hd %hd %hd",
-		fscanf(f,"%u %u %u %u %u %u",
+		fscanf(f,"%hd %hd %hd %hd %hd %hd",
+		//fscanf(f,"%u %u %u %u %u %u",
 			&rp->Exits[0],&rp->Exits[1],&rp->Exits[2],
 			&rp->Exits[3],&rp->Exits[4],&rp->Exits[5]);
 		rp->Text=ReadString(f);
@@ -409,8 +409,8 @@ void LoadDatabase(FILE *f)
 			if(t!=NULL)
 				*t=0;
 		}
-		//fscanf(f,"%hd",&lo);
-		fscanf(f,"%d",&lo);
+		fscanf(f,"%hd",&lo);
+		//fscanf(f,"%d",&lo);
 		ip->Location=(unsigned char)lo;
 		ip->InitialLoc=ip->Location;
 		ip++;
@@ -423,14 +423,14 @@ void LoadDatabase(FILE *f)
 		free(ReadString(f));
 		ldct++;
 	}
-	//fscanf(f,"%d",&ldct);
-	fscanf(f,"%u",&ldct);
+	fscanf(f,"%d",&ldct);
+	//fscanf(f,"%u",&ldct);
 #ifdef DEBUG
 		//printf("Version %d.%02d of Adventure ",	ldct/100,ldct%100);
 		printf("Version %u.%02u of Adventure ",	ldct/100,ldct%100);
 #endif
-	//fscanf(f,"%d",&ldct);
-	fscanf(f,"%u",&ldct);
+	fscanf(f,"%d",&ldct);
+	//fscanf(f,"%u",&ldct);
 #ifdef DEBUG
 		printf("%u.\nLoad Complete.\n\n",ldct);
 #endif
@@ -491,9 +491,9 @@ void Look()
 				f=1;
 			else
 				printf(", ");
-			printf ("%c[%um",27,32);
+			//printf ("%c[%um",27,32);
 			printf("%s ",ExitNames[ct]);
-			printf ("%c[%um",27,30);
+			//printf ("%c[%um",27,30);
 		}
 		ct++;
 	}
@@ -530,9 +530,9 @@ void Look()
 				pos=0;
 				printf("\n");
 			}
-			printf ("%c[%um",27,34);
+			//printf ("%c[%um",27,34);
 			printf("%s ",Items[ct].Text);
-			printf ("%c[%um",27,30);
+			//printf ("%c[%um",27,30);
 			pos += strlen(Items[ct].Text);
 			//if (Options & TRS80_STYLE)
 			//{
@@ -941,9 +941,9 @@ doneit:				printf ("The game is now over.\n");
 						}
 						f=1;
 						//printf ("%s",Items[cnt].Text);
-						printf ("%c[%um",27,34);
+						//printf ("%c[%um",27,34);
 						printf("%s ",Items[cnt].Text);
-						printf ("%c[%um",27,30);
+						//printf ("%c[%um",27,30);
 
 					}
 					cnt++;
