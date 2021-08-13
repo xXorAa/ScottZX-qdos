@@ -1346,8 +1346,8 @@ void main(int argc, char *argv[])
 		printf ("\nWhich adventure do you wish to play (00-17) ?  ");
 		LineInput(buf);
 		num=sscanf(buf,"%9s",numgame);
-		//sprintf(fname, "adv%s.dat", numgame);
-		sprintf(fname, "adv%s", numgame);
+		sprintf(fname, "adv%s_dat", numgame);
+		//sprintf(fname, "adv%s", numgame);
 	//	printf ("\n%s\n",fname);
 	//	f=fopen(argv[1],"r");
 	//	f=fopen("adv01.dat","r");
