@@ -297,7 +297,7 @@ void LoadDatabase(FILE *f)
   printf ("Loading\n");
 #endif
 	//if(fscanf(f,"%*d %d %d %d %d %d %d %d %d %d %d %d",
-	if(fscanf(f,"%*u %u %u %u %u %u %u %u %u %u %u %u",
+	if(fscanf(f,"%u %u %u %u %u %u %u %u %u %u %u %u",
 		&ni,&na,&nw,&nr,&mc,&pr,&tr,&wl,&lt,&mn,&trm,&ldct)<10)
 		Fatal("Invalid database(bad header)");
 	GameHeader.NumItems=ni;
@@ -1176,7 +1176,7 @@ int PerformActions(int vb,int no)
 					if(f2==2)
 						doagain=1;
 					if(vb!=0 && doagain==0)
-						return;
+						return fl;
 				}
 			}
 		}
