@@ -54,8 +54,10 @@ Examples:
 #else
 	#define fputc_cons(a) printf("%c",a)
 	#define fgetc_cons() fgetc(stdin)
+#ifndef __GNUC__
 	#define strcasecmp stricmp
 	#define strncasecmp strnicmp
+#endif
 	#define heapinit /*Heap init*/
 #endif
 
@@ -158,8 +160,8 @@ long BitFlags=0;	/* Might be >32 flags - I haven't seen >32 yet */
 void ClearScreen ()
 {
 	//fputc(12,stdout);
-	printf ("%c[%um%c[%um",27,47,27,30);
-	printf ("%c[2J",27);
+	//printf ("%c[%um%c[%um",27,47,27,30);
+	//printf ("%c[2J",27);
 }
 
 void Fatal(char *x)
@@ -297,7 +299,7 @@ void LoadDatabase(FILE *f)
   printf ("Loading\n");
 #endif
 	//if(fscanf(f,"%*d %d %d %d %d %d %d %d %d %d %d %d",
-	if(fscanf(f,"%u %u %u %u %u %u %u %u %u %u %u %u",
+	if(fscanf(f,"%*u %u %u %u %u %u %u %u %u %u %u %u",
 		&ni,&na,&nw,&nr,&mc,&pr,&tr,&wl,&lt,&mn,&trm,&ldct)<10)
 		Fatal("Invalid database(bad header)");
 	GameHeader.NumItems=ni;
@@ -1225,10 +1227,10 @@ int PerformActions(int vb,int no)
 							}
 						 	Items[cnt].Location= CARRIED;
 						 	Redraw=1;
-							printf ("%c[%um",27,35);
+							//printf ("%c[%um",27,35);
 							printf("%s",Items[cnt].Text);
 						 	printf (": O.K. \n");
-							printf ("%c[%um",27,30);
+							//printf ("%c[%um",27,30);
 						 	f=1;
 						 }
 						 cnt++;
@@ -1264,9 +1266,9 @@ int PerformActions(int vb,int no)
 					return(0);
 				}
 				Items[i].Location= CARRIED;
-				printf ("%c[%um",27,35);
+				//printf ("%c[%um",27,35);
 				printf ("O.K. ");
-				printf ("%c[%um",27,30);
+				//printf ("%c[%um",27,30);
 				Redraw=1;
 				return(0);
 			}
@@ -1286,10 +1288,10 @@ int PerformActions(int vb,int no)
 							disable_sysfunc=0;
 							Items[cnt].Location=MyLoc;
 
-							printf ("%c[%um",27,35);
+							//printf ("%c[%um",27,35);
 							printf("%s",Items[cnt].Text);
 						 	printf (": O.K. \n");
-							printf ("%c[%um",27,30);
+							//printf ("%c[%um",27,30);
 							Redraw=1;
 							f=1;
 						}
@@ -1316,9 +1318,9 @@ int PerformActions(int vb,int no)
 					return(0);
 				}
 				Items[i].Location=MyLoc;
-				printf ("%c[%um",27,35);
+				//printf ("%c[%um",27,35);
 				printf ("O.K. ");
-				printf ("%c[%um",27,30);
+				//printf ("%c[%um",27,30);
 				Redraw=1;
 				return(0);
 			}
@@ -1343,15 +1345,21 @@ void main(int argc, char *argv[])
 	ClearScreen();
 	do
 	{
-		printf ("\nWhich adventure do you wish to play (00-17) ?  ");
-		LineInput(buf);
-		num=sscanf(buf,"%9s",numgame);
-		sprintf(fname, "adv%s_dat", numgame);
-		//sprintf(fname, "adv%s", numgame);
+	//	printf ("\nWhich adventure do you wish to play (00-17) ?  ");
+	//	LineInput(buf);
+	//	num=sscanf(buf,"%9s",numgame);
+	//	sprintf(fname, "adv%s_dat", numgame);
+	//sprintf(fname, "adv%s", numgame);
 	//	printf ("\n%s\n",fname);
-	//	f=fopen(argv[1],"r");
+        if (argc != 2) {
+            Fatal("Usage: ScottZX <advfile>\n");
+        }
+		f=fopen(argv[1],"r");
+        if (f == NULL) {
+            Fatal("Could not file adv file\n");
+        }
 	//	f=fopen("adv01.dat","r");
-		f=fopen(fname,"r");
+	//	f=fopen(fname,"r");
 	}
 	while (f == NULL);
 	
@@ -1388,7 +1396,7 @@ void main(int argc, char *argv[])
 	//OutReset();
 */
 	//fputc(12,stdout);
-	printf ("%c[2J",27);
+	//printf ("%c[2J",27);
 	printf ("\
 Scott Free, A Scott Adams game driver in C.\n\
 Release 1.14, (c) 1993,1994,1995 \n\
